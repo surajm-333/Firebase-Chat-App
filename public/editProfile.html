@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Profile</title>
+   <!-- update the version number as needed -->
+    <script defer src="/__/firebase/8.2.0/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.2.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/8.2.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/8.2.0/firebase-storage.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <style>
+      .fs
+      {
+        font-family: Cursive;
+        font-size: 20px;
+      }
+      .reg
+      {
+        font-size:  1.5em;
+        font-family: Cursive;
+        color: #fc0384;
+      }
+      .fill
+      {
+        font-size:  1.2em;
+        font-family: Cursive;
+      }
+      input
+      {
+        border: 2px solid #fc0384;
+        border-radius: 5em;
+        width: 25%;
+        height: 10%;
+      }
+      button
+      {
+        border-radius: 12px;
+        padding: 10px 15px;
+        background-color: #fc0384;
+      }
+    </style>
+
+</head>
+<body>
+    <!-- <h2 id="user"></h2> -->
+    <form action="#">
+      <div class="container">
+        <div align="center">
+          <div class="reg">
+        <h1>Make your changes here</h1>
+      </div>
+    </div>
+        <!-- <p>Please fill in this form to create an account.</p> -->
+        <hr>
+        <div align="center">
+          <label for="abt"><b class="fs">Select Profile Picture : </b></label>
+        <input type="file" name="" id="" accept="image/*" onchange="updateDP(this)"><br><br>
+        <label for="abt"><b class="fs">About : </b></label>
+        <input type="text" placeholder="Enter About" name="abt" id="abt" required><br><br>
+
+        <label for="fname"><b class="fs">Name : </b></label>
+        <input type="text" placeholder="Enter Name" name="fname" id="fname" required><br><br>
+
+       <!--  <label for="gender"><b>Gender</b></label>
+        <select id="gender" name="gender">
+            <option value="" disabled="" selected="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="other">Other</option>
+        </select><br><br> -->
+
+        <button type="button" onclick ="savedata()" class="registerbtn fs">Save Changes</button>
+      </div>
+    </form>
+</body>
+<!-- <script src="js/main.js"></script> -->
+<script>
+var userid = '';
+      document.addEventListener('DOMContentLoaded', function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) 
+            {
+              userid = user.uid
+              console.log(user)
+              document.getElementById('user').innerHTML += user.uid;
+            } 
+            else 
+            {
+              window.location.href = "index.html";
+              console.log("user is  not logged in")
+            }
+        });
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+        } catch (e) {
+          console.error(e);
+          console.log('Error loading the Firebase SDK, check the console.');
+        }
+      });
+var uid='';
+var currentDP = firebase.auth().currentUser.photoURL;
+//var newDP = '';
+function updateDP(fl)
+{
+  var file = fl.files[0];
+  var ftime = ("ProfilePic"+new Date().getTime()); 
+  console.log(file)
+  console.log(ftime)
+  var upload = firebase.storage().ref("DP/"+ uid).child(ftime).put(file);
+  upload.on('state_changed', function(snapshot){
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+  }, function(error) {
+    if(error) alert(error);
+  }, function() {
+    upload.snapshot.ref.getDownloadURL().then(function(downloadURL) 
+    {
+      console.log('File available at', downloadURL);
+      currentDP = downloadURL;
+      // STORING URL
+      //sendMsg(downloadURL,'img');
+      // firebase.database().ref("users/"+ userid).on('value',snap=>
+      //           {
+      //             snap.val().profile = downloadURL;
+      //           });
+    //   var userData = 
+    // {
+    //     email: firebase.auth().currentUser.email,
+    //     active: firebase.auth().currentUser.email,
+    //     status: document.getElementById('abt').value,
+    //     uname: document.getElementById('fname').value,
+    //     profile: downloadURL
+    // }
+    // console.log('hell')
+    // console.log(userData)
+    // firebase.database().ref("users/"+ uid).update(userData, function(error) 
+    // {
+    //     if (error) {console.log(error)} 
+    //     else {
+    //         confirm('Changes DP successfully');
+    //         if(confirm)
+    //         {
+    //           console.log('Congratulations, DP changed')
+    //         }
+    //     }
+    // })
+    });
+  });
+}
+function savedata() 
+{
+    uid =  firebase.auth().currentUser.uid;
+    var userdata = 
+    {
+        email: firebase.auth().currentUser.email,
+        active: firebase.auth().currentUser.email,
+        status: document.getElementById('abt').value,
+        uname: document.getElementById('fname').value,
+        profile: currentDP,
+    }
+    console.log(userdata)
+    firebase.database().ref("users/"+ uid).update(userdata, function(error) 
+    {
+        if (error) {console.log(error)} 
+        else {
+            confirm('Changes saved successfully');
+            if(confirm)
+            {
+              window.location.href = "profile.html";
+            }
+        }
+    })
+}
+// function updateDP(fl)
+// {
+//   var file = fl.files[0];
+//   var ftime = ("ProfilePic"+new Date().getTime()); 
+//   console.log(file)
+//   console.log(ftime)
+//   var upload = firebase.storage().ref("DP/"+ uid).child(ftime).put(file);
+//   upload.on('state_changed', function(snapshot){
+//     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     console.log('Upload is ' + progress + '% done');
+//   }, function(error) {
+//     if(error) alert(error);
+//   }, function() {
+//     upload.snapshot.ref.getDownloadURL().then(function(downloadURL) 
+//     {
+//       console.log('File available at', downloadURL);
+//       // STORING URL
+//       //sendMsg(downloadURL,'img');
+//       // firebase.database().ref("users/"+ userid).on('value',snap=>
+//       //           {
+//       //             snap.val().profile = downloadURL;
+//       //           });
+//     //   var userData = 
+//     // {
+//     //     email: firebase.auth().currentUser.email,
+//     //     active: firebase.auth().currentUser.email,
+//     //     status: document.getElementById('abt').value,
+//     //     uname: document.getElementById('fname').value,
+//     //     profile: downloadURL
+//     // }
+//     // console.log('hell')
+//     // console.log(userData)
+//     // firebase.database().ref("users/"+ uid).update(userData, function(error) 
+//     // {
+//     //     if (error) {console.log(error)} 
+//     //     else {
+//     //         confirm('Changes DP successfully');
+//     //         if(confirm)
+//     //         {
+//     //           console.log('Congratulations, DP changed')
+//     //         }
+//     //     }
+//     // })
+//     });
+//   });
+// }
+</script>
+</html>
