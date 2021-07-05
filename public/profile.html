@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Your Profile</title>
-    <!-- W3.CSS + JQUERY -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <!-- update the version number as needed -->
-    <script defer src="/__/firebase/8.2.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.2.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-functions.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-storage.js"></script>
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- W3.CSS + JQUERY -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/8.2.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/8.2.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-database.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-functions.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-storage.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 </head>
 
 <body>
-	<div align="center"><img src="" id="profileimg"></div>
-	<h1 align="center"><span id="name"></span></h1> <hr>
-	<div style="margin-left:30%;">
-		<h2>Email: <span id="profilemail"></span></h2><hr>
-		<h2>Username: <span id="profileuname"></span></h2><hr>
-		<h2>Status: <span id="profilestatus"></span></h2><hr>
+  <div align="center"><img src="" id="profileimg"></div>
+  <h1 align="center"><span id="name"></span></h1>
+  <hr>
+  <div style="margin-left:30%;">
+    <h2>Email: <span id="profilemail"></span></h2>
+    <hr>
+    <h2>Username: <span id="profileuname"></span></h2>
+    <hr>
+    <h2>Status: <span id="profilestatus"></span></h2>
+    <hr>
 
-	</div>
-	<div>
-		<button style="margin-left: 40%;" onclick="window.location.href='main.html';">Done</button>
-		<button style="margin-left: 50px;" onclick="window.location.href='editProfile.html';">Edit Profile</button>
-	</div>
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() 
-{
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) 
-            {
-             
-              firebase.database().ref("users/"+ user.uid).on('value',snap=>
-              	{
-              		document.getElementById('profileimg').src = snap.val().profile;
-              		document.getElementById('profilemail').innerHTML += snap.val().email;
-              		document.getElementById('profileuname').innerHTML += snap.val().uname;
-              		document.getElementById('profilestatus').innerHTML += snap.val().status;
-              	});
-              // document.getElementById('name').innerHTML+= user.displayName;
-              // document.getElementById('img').src = user.photoURL;
-            } 
-            
-        });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          console.log(`Firebase SDK loaded with ${features.join(', ')}`);
-        } catch (e) {
-          console.error(e);
-          console.log('Error loading the Firebase SDK, check the console.');
-        }        
-});
-</script>
-<script src="js/main.js"></script>
+  </div>
+  <div>
+    <button style="margin-left: 40%;" onclick="window.location.href='main.html';">Done</button>
+    <button style="margin-left: 50px;" onclick="window.location.href='editProfile.html';">Edit Profile</button>
+  </div>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // // The Firebase SDK is initialized and available here!
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+          firebase.database().ref("users/" + user.uid).on('value', snap => {
+            document.getElementById('profileimg').src = snap.val().profile;
+            document.getElementById('profilemail').innerHTML += snap.val().email;
+            document.getElementById('profileuname').innerHTML += snap.val().uname;
+            document.getElementById('profilestatus').innerHTML += snap.val().status;
+          });
+          // document.getElementById('name').innerHTML+= user.displayName;
+          // document.getElementById('img').src = user.photoURL;
+        }
+
+      });
+
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      try {
+        let app = firebase.app();
+        let features = [
+          'auth',
+          'database',
+          'messaging',
+          'storage',
+          'analytics',
+          'remoteConfig',
+          'performance',
+        ].filter(feature => typeof app[feature] === 'function');
+        console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+      } catch (e) {
+        console.error(e);
+        console.log('Error loading the Firebase SDK, check the console.');
+      }
+    });
+  </script>
+  <script src="js/main.js"></script>
 </body>
+
 </html>

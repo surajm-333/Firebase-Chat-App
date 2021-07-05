@@ -1,227 +1,250 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
-    <!-- W3.CSS + JQUERY -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- update the version number as needed -->
-    <script defer src="/__/firebase/8.2.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/8.2.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-functions.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/8.2.0/firebase-storage.js"></script>
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+  <!-- W3.CSS + JQUERY -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/8.2.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/8.2.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-database.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-functions.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/8.2.0/firebase-storage.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 </head>
 <style>
-  .form-inline {  
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
-.dark-mode
-{
-  background-color: black;
-  color: white;
-}
-.form-inline label {
-  margin: 5px 10px 5px 0;
-}
-
-.form-inline input {
-  vertical-align: middle;
-  
-  margin: 5px 10px 5px 0;
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
-
-.form-inline button {
-  padding: 10px 20px;
-  background-color: orange;
-  border: 1px solid #ddd;
-  color: white;
-  cursor: pointer;
-}
-.form-inline button:hover {
-  background-color: orange;
-}
-
-i.fa-file-image-o {
-  margin: 10px;
-  cursor: pointer;
-  font-size: 30px;
-  color: #b100b3;
-}
-i.fa-file-text-o {
-  margin: 10px;
-  cursor: pointer;
-  font-size: 30px;
-  color: #b100b3;
-}
-i:hover {
-  opacity: 0.6;
-}
-#flmsg {
-  display: none;
-}
-#flmsg1{
-  display: none;
-}
-@media (min-width: 400px) {
-  .form-inline input {
-    margin: 10px 0;
-    width: 60%;
-    padding: 10px;
-  }
-@media (max-width: 400px) {
-  .form-inline input {
-    margin: 10px 0;
-  }
-  
   .form-inline {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
   }
-}
-</style>
-<body class="w3-light-grey">
-<!-- Top container -->
-<div class="w3-bar w3-top w3-purple w3-large" style="z-index:4;" >
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Users</button>
-  <span class="w3-bar-item w3-right" id="top0" style="cursor: pointer;">Developed by Suraj Mulchandani<!-- <button onclick="dark()">Dark Mode</button> --></span>
-</div>
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-aqua w3-animate-left w3-responsive dark-mode" style="z-index:3;width:375px;" id="mySidebar"><br>
-  <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="avtr.png" class="w3-circle w3-margin-right" style="width:56px" id="img" onclick="imgmodal(this.src);">
-    </div>
-    <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong id="name"></strong></span><br>
-      <span>You are now <strong>Online</strong></span><br>
-      <span>Username: <strong id="myuname"></strong></span><br>
-      <span>Status: <strong id="mystatus"></strong></span><br>
-      <p id="load"></p>
-      <!-- <div class="w3-bar-item w3-button"><i class="fa fa"></i></div> -->
-      <div class="w3-bar-item w3-button" onclick="window.location.href='profile.html';"><i class="fa fa-cog"></i></div>
-      <div class="w3-bar-item w3-button" onclick="out()"><i class=" fa fa-sign-out" title="Sign Out"></i></div>
-    </div>
+  .dark-mode {
+    background-color: black;
+    color: white;
+  }
+
+  .form-inline label {
+    margin: 5px 10px 5px 0;
+  }
+
+  .form-inline input {
+    vertical-align: middle;
+
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+
+  .form-inline button {
+    padding: 10px 20px;
+    background-color: orange;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
+  }
+
+  .form-inline button:hover {
+    background-color: orange;
+  }
+
+  i.fa-file-image-o {
+    margin: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #b100b3;
+  }
+
+  i.fa-file-text-o {
+    margin: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #b100b3;
+  }
+
+  i:hover {
+    opacity: 0.6;
+  }
+
+  #flmsg {
+    display: none;
+  }
+
+  #flmsg1 {
+    display: none;
+  }
+
+  @media (min-width: 400px) {
+    .form-inline input {
+      margin: 10px 0;
+      width: 60%;
+      padding: 10px;
+    }
+
+    @media (max-width: 400px) {
+      .form-inline input {
+        margin: 10px 0;
+      }
+
+      .form-inline {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+</style>
+
+<body class="w3-light-grey">
+  <!-- Top container -->
+  <div class="w3-bar w3-top w3-purple w3-large" style="z-index:4;">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i
+        class="fa fa-bars"></i>  Users</button>
+    <span class="w3-bar-item w3-right" id="top0" style="cursor: pointer;">Developed by Suraj Mulchandani
+      <!-- <button onclick="dark()">Dark Mode</button> -->
+    </span>
   </div>
-  <hr>
-  <div class="w3-bar-block " style="cursor:pointer;">
-    <ul class="w3-ul" id="list">
-      <li class="w3-padding-16" id="1">
-        <img src="avtr.png" class="w3-left w3-circle w3-margin-right" style="width:45px">
-        <span class="w3-large">Demo</span><br>
-        <span class="w3-small">Demo</span><br>
-      </li>
-    </ul>
-    <hr/>
-    <!-- <br><br><br> -->
-  </div>
-</nav>
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-<!--  -->
-<!-- !PAGE CONTENT! -->
-<div class="w3-main w3-display-container" style="margin-left:375px;margin-top:43px;">
-  <!-- Header -->
-  <!-- <header class="w3-container" style="padding-top:22px">
+
+  <!-- Sidebar/menu -->
+  <nav class="w3-sidebar w3-collapse w3-aqua w3-animate-left w3-responsive dark-mode" style="z-index:3;width:375px;"
+    id="mySidebar"><br>
+    <div class="w3-container w3-row">
+      <div class="w3-col s4">
+        <img src="avtr.png" class="w3-circle w3-margin-right" style="width:56px" id="img" onclick="imgmodal(this.src);">
+      </div>
+      <div class="w3-col s8 w3-bar">
+        <span>Welcome, <strong id="name"></strong></span><br>
+        <span>You are now <strong>Online</strong></span><br>
+        <span>Username: <strong id="myuname"></strong></span><br>
+        <span>Status: <strong id="mystatus"></strong></span><br>
+        <p id="load"></p>
+        <!-- <div class="w3-bar-item w3-button"><i class="fa fa"></i></div> -->
+        <div class="w3-bar-item w3-button" onclick="window.location.href='profile.html';"><i class="fa fa-cog"></i>
+        </div>
+        <div class="w3-bar-item w3-button" onclick="out()"><i class=" fa fa-sign-out" title="Sign Out"></i></div>
+      </div>
+    </div>
+    <hr>
+    <div class="w3-bar-block " style="cursor:pointer;">
+      <ul class="w3-ul" id="list">
+        <li class="w3-padding-16" id="1">
+          <img src="avtr.png" class="w3-left w3-circle w3-margin-right" style="width:45px">
+          <span class="w3-large">Demo</span><br>
+          <span class="w3-small">Demo</span><br>
+        </li>
+      </ul>
+      <hr />
+      <!-- <br><br><br> -->
+    </div>
+  </nav>
+  <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+    title="close side menu" id="myOverlay"></div>
+  <!--  -->
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main w3-display-container" style="margin-left:375px;margin-top:43px;">
+    <!-- Header -->
+    <!-- <header class="w3-container" style="padding-top:22px">
     <h5><strong>Coders' Club Chat WebApp</strong></h5>
   </header> -->
-  <div class="w3-section">
-    <div id="header">
-    <header class="w3-panel w3-bottombar w3-border-purple" style="cursor: pointer;padding-top: 2em;" >
-        <img src="" class="w3-left w3-circle w3-margin-right" style="width:46px;padding-top: 8px;" id="hdrimg">
-        <p class="w3-large" id="hdrname">Click on Users button to chat<span class="w3-small w3-opacity"></span></p>
-    </header>
+    <div class="w3-section">
+      <div id="header">
+        <header class="w3-panel w3-bottombar w3-border-purple" style="cursor: pointer;padding-top: 2em;">
+          <img src="" class="w3-left w3-circle w3-margin-right" style="width:46px;padding-top: 8px;" id="hdrimg">
+          <p class="w3-large" id="hdrname">Click on Users button to chat<span class="w3-small w3-opacity"></span></p>
+        </header>
+      </div>
     </div>
-  </div>
-  <!-- DISPLAY MESSAGES START -->
-  <div id="msg" class="w3-padding" style="margin-bottom: 70px;">  
-  </div>
-  <!-- DISPLAY MESSAGES END  -->
-  <footer class="w3-container w3-bottom w3-light-grey" id="foot">
-    <div class="form-inline ">
-      <input style="border-color:#b100b3;border-width:0.34em;border-radius: 0 3em;" autocomplete="off" type='text' placeholder='Enter Message' id='sndmsg'/>
-      <!-- <button onclick='sendMsg()'><i class="fa fa-send"></i></button> -->
-      
-      
-      <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
-      <input type='file' name='' id='flmsg' accept="image/*" onchange="sendFile(this)">
-
-
-      <i class='fa fa-file-text-o' id="fileup1"></i><span class='name'></span>
-      <input type='file' name='' id='flmsg1' accept=".doc,.docx,.pdf,.xls,.xlsx,.json,.csv,.txt,.ppt,.pptx" onchange="sendDoc(this)">  
-    
-       
+    <!-- DISPLAY MESSAGES START -->
+    <div id="msg" class="w3-padding" style="margin-bottom: 70px;">
     </div>
-  </footer>
+    <!-- DISPLAY MESSAGES END  -->
+    <footer class="w3-container w3-bottom w3-light-grey" id="foot">
+      <div class="form-inline ">
+        <input style="border-color:#b100b3;border-width:0.34em;border-radius: 0 3em;" autocomplete="off" type='text'
+          placeholder='Enter Message' id='sndmsg' />
+        <!-- <button onclick='sendMsg()'><i class="fa fa-send"></i></button> -->
 
-  <!-- End page content -->
 
-</div>
-<!-- Forward Message Modal content -->
-<div id="sss" class="w3-modal" onclick="this.style.display='none'">
+        <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
+        <input type='file' name='' id='flmsg' accept="image/*" onchange="sendFile(this)">
+
+
+        <i class='fa fa-file-text-o' id="fileup1"></i><span class='name'></span>
+        <input type='file' name='' id='flmsg1' accept=".doc,.docx,.pdf,.xls,.xlsx,.json,.csv,.txt,.ppt,.pptx"
+          onchange="sendDoc(this)">
+
+
+      </div>
+    </footer>
+
+    <!-- End page content -->
+
+  </div>
+  <!-- Forward Message Modal content -->
+  <div id="sss" class="w3-modal" onclick="this.style.display='none'">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="width:20%;border-radius:2em;border-color: purple;">
-        <span onclick="document.getElementById('sss').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-        <!-- <img id="imgmodal" src='Coders.jpg' class="w3-image" style="width:300px;"/><br> -->
-        <h2 align="center">
-          <!-- <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
+      <span onclick="document.getElementById('sss').style.display='none'"
+        class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+      <!-- <img id="imgmodal" src='Coders.jpg' class="w3-image" style="width:300px;"/><br> -->
+      <h2 align="center">
+        <!-- <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
           <input type='file' name='' id='flmsg' accept="image/*" onchange="updateDP(this)">  -->
-        </h2><hr>
-        <div id="experiment"></div>
+      </h2>
+      <hr>
+      <div id="experiment"></div>
     </div>
   </div>
   <!-- Image Modal Content -->
   <div id="aaa" class="w3-modal" onclick="this.style.display='none'">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="width:20%;border-radius:2em;border-color: purple;">
-        <span onclick="document.getElementById('aaa').style.display='none'" class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-        <img id="imgmodal" src='Coders.jpg' class="w3-image" style="width:100%;"/><br>
-        <h2 align="center">Profile Picture
-          <!-- <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
+      <span onclick="document.getElementById('aaa').style.display='none'"
+        class="w3-button w3-large w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+      <img id="imgmodal" src='Coders.jpg' class="w3-image" style="width:100%;" /><br>
+      <h2 align="center">Profile Picture
+        <!-- <i class='fa fa-file-image-o' id="fileup"></i><span class='name'></span>
           <input type='file' name='' id='flmsg' accept="image/*" onchange="updateDP(this)">  -->
-        </h2><hr>
-        <!-- <div id="experiment"></div> -->
+      </h2>
+      <hr>
+      <!-- <div id="experiment"></div> -->
     </div>
   </div>
-<script>
-// Get the Sidebar
-var mySidebar = document.getElementById("mySidebar");
-// Get the DIV with overlay effect
-var overlayBg = document.getElementById("myOverlay");
-// Toggle between showing and hiding the sidebar, and add overlay effect
-function w3_open() {
-  if (mySidebar.style.display === 'block') {
-    mySidebar.style.display = 'none';
-    overlayBg.style.display = "none";
-  } 
-  else {
-    mySidebar.style.display = 'block';
-    overlayBg.style.display = "block";
-  }
-}
-// Close the sidebar with the close button
-function w3_close() {
-  mySidebar.style.display = "none";
-  overlayBg.style.display = "none";
-}
-$("#fileup1").click(function () {
-  $("#flmsg1").trigger('click');
-});
-$("#fileup").click(function () {
-  $("#flmsg").trigger('click');
-});
-</script>
+  <script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+      if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+      }
+      else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+      }
+    }
+    // Close the sidebar with the close button
+    function w3_close() {
+      mySidebar.style.display = "none";
+      overlayBg.style.display = "none";
+    }
+    $("#fileup1").click(function () {
+      $("#flmsg1").trigger('click');
+    });
+    $("#fileup").click(function () {
+      $("#flmsg").trigger('click');
+    });
+  </script>
   <!--   <button onclick="out()">Sign Out</button> -->
   <script src="js/main.js"></script>
 </body>
+
 </html>
